@@ -7,26 +7,52 @@
 #define WIDTH		400
 #define HEIGHT		400
 
-int main(void)
+typedef struct s_mlx_data
 {
-    void *mlx_connection;
-    void *mlx_window;
+	void	*mlx_ptr;
+	void	*win_ptr;
+}		t_mlx_data;
 
-    mlx_connection = mlx_init();
-    if (NULL == mlx_connection)
-        return (MALLOC_ERROR);
-
-    mlx_window = mlx_new_window(mlx_connection, WIDTH, HEIGHT, "FDF MwX-");
-    if (NULL == mlx_window)
-    {
-        mlx_destroy_display(mlx_connection);
-        free(mlx_connection);
-        return (MALLOC_ERROR);
-    }
-
-    mlx_loop(mlx_connection);
-    mlx_destroy_window(mlx_connection, mlx_window);
-    mlx_destroy_display(mlx_connection);
-    free(mlx_connection);
-    return (0);
+int	key_hook(int keycode, t_mlx_data *data)
+{
+	if (keycode == 53 || keycode == 65307)
+	{
+		printf("Esc pressionado! Fechando...\n");
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+		mlx_destroy_display(data->mlx_ptr);
+		free(data->mlx_ptr);
+		exit(0);
+	}
+	else
+	{
+		printf("Tecla pressionada: %d\n", keycode);
+	}
+	return (0);
 }
+
+int	main(void)
+{
+	t_mlx_data	data;
+
+	data.mlx_ptr = mlx_init();
+	if (data.mlx_ptr == NULL)
+	return (MALLOC_ERROR);
+
+	data.win_ptr = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "FdF - MwX-");
+	if (data.win_ptr == NULL)
+	{
+		mlx_destroy_display(data.mlx_ptr);
+		free(data.mlx_ptr);
+		return (MALLOC_ERROR);
+	}
+
+	mlx_key_hook(data.win_ptr, key_hook, &data);
+
+	mlx_loop(data.mlx_ptr);	
+
+	mlx_destroy_window(data.mlx_ptr, data.win_ptr);
+	mlx_destroy_display(data.mlx_ptr);
+	free(data.mlx_ptr);
+	return (0);
+}
+
