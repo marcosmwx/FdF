@@ -6,6 +6,8 @@
 #define MALLOC_ERROR	1
 #define WIDTH		400
 #define HEIGHT		400
+#define XK_Escape	65307
+#define XK_Escape2	53
 
 typedef struct s_mlx_data
 {
@@ -15,9 +17,9 @@ typedef struct s_mlx_data
 
 int	key_hook(int keycode, t_mlx_data *data)
 {
-	if (keycode == 53 || keycode == 65307)
+	if (keycode == XK_Escape || keycode == XK_Escape2)
 	{
-		printf("Esc pressionado! Fechando...\n");
+		printf("Tecla %d - Esc pressionada! Fechando...\n", keycode);
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		mlx_destroy_display(data->mlx_ptr);
 		free(data->mlx_ptr);
