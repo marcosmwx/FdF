@@ -16,7 +16,7 @@ int main(void)
     if (NULL == mlx_connection)
         return (MALLOC_ERROR);
 
-    mlx_window = mlx_new_window(mlx_connection, WIDTH, HEIGHT, "My window");
+    mlx_window = mlx_new_window(mlx_connection, WIDTH, HEIGHT, "FDF MwX-");
     if (NULL == mlx_window)
     {
         mlx_destroy_display(mlx_connection);
