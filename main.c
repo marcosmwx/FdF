@@ -19,31 +19,30 @@ int	key_hook(int keycode, fdf *data)
     	data->depth_factor += 10;
 	if (keycode == 111) // Tecla 'o' para diminuir a profundidade
     	data->depth_factor -= 10;
-    if (keycode == 65362) // Seta para cima
+    if (keycode == 65362) // Seta para cima rotaciona para cima
         data->angle_x += 0.1;
-    if (keycode == 65364) // Seta para baixo
+    if (keycode == 65364) // Seta para baixo rotaciona para baixo
         data->angle_x -= 0.1;
-    if (keycode == 65361) // Seta para esquerda
+    if (keycode == 65361) // Seta para esquerda rotaciona girando para esquerda
         data->angle_y -= 0.1;
-    if (keycode == 65363) // Seta para direita
+    if (keycode == 65363) // Seta para direita rotaciona girando para direita
         data->angle_y += 0.1;
-    if (keycode == 119)
+    if (keycode == 119) // tecla w movimenta para cima
 		data->shift_y -= 10;
-    if (keycode == 115)
+    if (keycode == 115) // tecla s movimenta para baixo
 		data->shift_y += 10;
-    if (keycode == 97)
+    if (keycode == 97) // tecla a movimenta para esquerda
     	data->shift_x -= 10;
-    if (keycode == 100)
+    if (keycode == 100) // tecla d movimenta para direita
     	data->shift_x += 10;
-    if (keycode == 122)
+    if (keycode == 122) //tecla z da zoom
       data->zoom += 10;
-    if (keycode == 120)
+    if (keycode == 120) //tecla x diminui o zoom
       data->zoom -= 10;
-	if (keycode == 99) // Tecla 'c' para aumentar o fator de cor
+	if (keycode == 99) // Tecla c para aumentar o fator de cor
 		data->color_factor += 10;
-	if (keycode == 118) // Tecla 'v' para diminuir o fator de cor
+	if (keycode == 118) // Tecla c para diminuir o fator de cor
 		data->color_factor -= 10;
-
 
     mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	draw(data);

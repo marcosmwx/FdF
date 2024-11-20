@@ -113,7 +113,7 @@ void bresehnam(float x, float y, float x1, float y1, fdf *data)
     y_step /= max;
 
     // Determina o valor mínimo e máximo de z para o degradê
-    int z_min = -50; // Ajuste conforme seu mapa
+    int z_min = -50;
     int z_max = 50;
 
     int start_color = calculate_color(z, z_min, z_max, data);
