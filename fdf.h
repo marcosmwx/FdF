@@ -16,6 +16,9 @@ typedef struct
     int    color;
     int    shift_x;
     int    shift_y;
+    float	angle_x;
+    float	angle_y;
+    float   depth_factor;
 
     void    *mlx_ptr;
     void    *win_ptr;
