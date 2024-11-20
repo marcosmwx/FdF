@@ -88,11 +88,17 @@ void bresehnam(float x, float y, float x1, float y1, fdf *data)
     x1 *= data->zoom;
     y1 *= data->zoom;
 
+    // Subtrair o centro do mapa para centralizar antes da rotação
+    x -= (data->width - 1) * data->zoom / 2.0;
+    y -= (data->height - 1) * data->zoom / 2.0;
+    x1 -= (data->width - 1) * data->zoom / 2.0;
+    y1 -= (data->height - 1) * data->zoom / 2.0;
+
     //------- 3D CALC -----//
     isometric(&x, &y, z, data);
     isometric(&x1, &y1, z1, data);
 
-    //----- shift -------//
+    // Agora, deslocar de volta para o centro da tela
     x += data->shift_x;
     y += data->shift_y;
     x1 += data->shift_x;
