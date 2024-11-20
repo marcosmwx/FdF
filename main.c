@@ -39,6 +39,10 @@ int	key_hook(int keycode, fdf *data)
       data->zoom += 10;
     if (keycode == 120)
       data->zoom -= 10;
+	if (keycode == 99) // Tecla 'c' para aumentar o fator de cor
+		data->color_factor += 10;
+	if (keycode == 118) // Tecla 'v' para diminuir o fator de cor
+		data->color_factor -= 10;
 
 
     mlx_clear_window(data->mlx_ptr, data->win_ptr);
@@ -60,6 +64,7 @@ int    main(int argc, char **argv)
     data->angle_x = 0.2; // Valor inicial do ângulo X (radiano)
 	data->angle_y = 0.2; // Valor inicial do ângulo Y (radiano)
     data->depth_factor = 1.0; // Valor inicial da profundidade
+	data->color_factor = 100;
 	// Calcule o deslocamento para centralizar o mapa
 	float map_center_x = (data->width - 1) * data->zoom / 50.0;
 	float map_center_y = (data->height - 1) * data->zoom / 50.0;

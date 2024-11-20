@@ -4,23 +4,25 @@
 #define MAX(a, b) (a > b ? a : b)
 #define MOD(a) ((a < 0) ? -a : a)
 
-// Função para interpolar cor com base em Z
-int calculate_color(int z, int z_min, int z_max)
+int calculate_color(int z, int z_min, int z_max, fdf *data)
 {
     if (z <= 0)
-        return 0x404040; //cor da base ..
+        return 0x404040; // cor da base ...
 
-    // Interpolar entre branco e vermelho
-    float factor = (float)(z - z_min) / (float)(z_max - z_min); // Normaliza Z no intervalo
+    // Normaliza Z no intervalo
+    float factor = (float)(z - z_min) / (float)(z_max - z_min);
     if (factor > 1.0)
         factor = 1.0; // Garante que o fator não ultrapasse 1
 
-    // Interpolação de cores (branco -> vermelho)
-    int red = (int)(0xFF * factor);        // Intensidade do vermelho
-    int green = (int)(0xFF * (1 - factor)); // Reduz o verde conforme o vermelho aumenta
-    int blue = (int)(0xFF * (1 - factor));  // Reduz o azul conforme o vermelho aumenta
+    // Modifica a interpolação de cores usando o fator de cor
+    factor *= (data->color_factor / 100.0);  // Controlando a intensidade de cor com color_factor
 
-    return (red << 16) | (green << 8) | blue; // Combina R, G, B em um valor hexadecimal
+    // Interpolação de cores (branco -> vermelho)
+    int red = (int)(0xFF * factor);
+    int green = (int)(0xFF * (1 - factor));
+    int blue = (int)(0xFF * (1 - factor));
+
+    return (red << 16) | (green << 8) | blue;
 }
 
 int interpolate_color(int start_color, int end_color, float t)
@@ -114,8 +116,8 @@ void bresehnam(float x, float y, float x1, float y1, fdf *data)
     int z_min = -50; // Ajuste conforme seu mapa
     int z_max = 50;
 
-    int start_color = calculate_color(z, z_min, z_max);
-    int end_color = calculate_color(z1, z_min, z_max);
+    int start_color = calculate_color(z, z_min, z_max, data);
+    int end_color = calculate_color(z1, z_min, z_max, data);
 
     float t = 0; // Fator de interpolação (de 0 a 1)
 
