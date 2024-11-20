@@ -61,7 +61,7 @@ int    main(int argc, char **argv)
 	data->angle_y = 0.2; // Valor inicial do ângulo Y (radiano)
     data->depth_factor = 1.0; // Valor inicial da profundidade
 	// Calcule o deslocamento para centralizar o mapa
-	float map_center_x = (data->width - 1) * data->zoom / 3;
+	float map_center_x = (data->width - 1) * data->zoom / 2.0;
 	float map_center_y = (data->height - 1) * data->zoom / 2.0;
 
 	data->shift_x = (WIN_WIDTH / 2) - map_center_x;

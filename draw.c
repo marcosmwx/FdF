@@ -51,13 +51,19 @@ void    isometric(float *x, float *y, int z, fdf *data)
     // Aplicando o fator de profundidade
     z *= data->depth_factor;
 
-    // Aplicando rotação no eixo X
-    //*x = (previous_x - previous_y) * cos(data->angle_x) - z * sin(data->angle_y);
-    *x = previous_x * cos(data->angle_y) + z * sin(data->angle_y);
-    *y = previous_y * cos(data->angle_x) + z * sin(data->angle_x);
+    // Rotação em torno do eixo X
+    float rotated_y = previous_y * cos(data->angle_x) - z * sin(data->angle_x);
+    float rotated_z = previous_y * sin(data->angle_x) + z * cos(data->angle_x);
 
-    //*y = (previous_x + previous_y) * sin(data->angle_x) - z * cos(data->angle_y);
+    // Rotação em torno do eixo Y (se necessário)
+    float rotated_x = previous_x * cos(data->angle_y) + rotated_z * sin(data->angle_y);
+    rotated_z = -previous_x * sin(data->angle_y) + rotated_z * cos(data->angle_y);
+
+    // Atualizando as coordenadas
+    *x = rotated_x;  // X rotacionado em torno de Y
+    *y = rotated_y;  // Y rotacionado em torno de X
 }
+
 
 float    mod(float i)
 {
