@@ -22,10 +22,16 @@ typedef struct
     float   depth_factor;
     void    *mlx_ptr;
     void    *win_ptr;
+    int     last_mouse_x;
+    int     last_mouse_y;
+    int     mouse_pressed;
 }    fdf;
 
 void    read_file(char *file_name, fdf *data);
 void    bresehnam(float x, float y, float x1, float y1, fdf *data);
 void    draw(fdf *data);
+int mouse_move(int x, int y, fdf *data);
+int mouse_press(int button, int x, int y, fdf *data);
+int mouse_release(int button, int x, int y, fdf *data);
 
 #endif

@@ -64,14 +64,20 @@ int    main(int argc, char **argv)
 	data->angle_y = 0.2; // Valor inicial do ângulo Y (radiano)
     data->depth_factor = 1.0; // Valor inicial da profundidade
 	data->color_factor = 100;
-	// Calcule o deslocamento para centralizar o mapa
+
+	// Calculo de deslocamento para centralizar o mapa
 	float map_center_x = (data->width - 1) * data->zoom / 50.0;
 	float map_center_y = (data->height - 1) * data->zoom / 50.0;
 
 	data->shift_x = (WIN_WIDTH / 2) - map_center_x;
 	data->shift_y = (WIN_HEIGHT / 2) - map_center_y;
 
+	data->mouse_pressed = 0;
+
 	draw(data);
 	mlx_key_hook(data->win_ptr, key_hook, data);
+	mlx_mouse_hook(data->win_ptr, mouse_press, data);        // Pressionamento do mouse // quando apertar click do mouse inicia modo rotacao
+	// se apertar mouse 3 para o modo rotacao..
+	mlx_hook(data->win_ptr, 6, (1L << 6), mouse_move, data); // Movimento do mouse faz a rotação
 	mlx_loop(data->mlx_ptr);
 }
