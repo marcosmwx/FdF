@@ -66,12 +66,20 @@ void    isometric(float *x, float *y, int z, fdf *data)
     *y = rotated_y;  // Y rotacionado em torno de X
 }
 
-
 float    mod(float i)
 {
     if (i < 0)
       i = -i;
     return (i);
+}
+
+void set_pixel(fdf *data, int x, int y, int color)
+{
+    if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
+    {
+        int index = (y * data->size_line + x * (data->bpp / 8));
+        *(int*)(data->img_data + index) = color; // Define a cor do pixel
+    }
 }
 
 void bresehnam(float x, float y, float x1, float y1, fdf *data)
@@ -125,22 +133,30 @@ void bresehnam(float x, float y, float x1, float y1, fdf *data)
     {
         t += 1.0 / max; // Incrementa o fator proporcional ao passo
         int color = interpolate_color(start_color, end_color, t); // Calcula a cor interpolada
-        mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, color);
+        set_pixel(data, (int)x, (int)y, color); // Define a cor do pixel na imagem
         x += x_step;
         y += y_step;
     }
 }
 
-void    draw(fdf *data)
+#include <string.h>
+
+void clear_image(fdf *data)
 {
-    int    x;
-    int    y;
+    memset(data->img_data, 0, WIN_WIDTH * WIN_HEIGHT * (data->bpp / 8));
+}
+
+void draw(fdf *data)
+{
+  	clear_image(data);
+    int x;
+    int y;
 
     y = 0;
-    while(y < data->height)
+    while (y < data->height)
     {
         x = 0;
-        while(x < data->width)
+        while (x < data->width)
         {
             if (x < data->width - 1)
                 bresehnam(x, y, x + 1, y, data);
@@ -150,4 +166,6 @@ void    draw(fdf *data)
         }
         y++;
     }
+    // Exibir a imagem na janela
+    mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
 }

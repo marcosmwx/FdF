@@ -19,7 +19,7 @@ int mouse_move(int x, int y, fdf *data)
             data->last_mouse_y = y;
 
             // Redesenha a janela com a nova rotação
-            mlx_clear_window(data->mlx_ptr, data->win_ptr); // Limpa a janela
+            //mlx_clear_window(data->mlx_ptr, data->win_ptr); // Limpa a janela
             draw(data);  // Desenha o mapa com a rotação aplicada
         }
     }

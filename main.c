@@ -2,9 +2,6 @@
 // compilador
 // gcc *.c libft/libft.a minilibx-linux/libmlx.a -lX11 -lXext -lm
 
-#define WIN_WIDTH 1000
-#define WIN_HEIGHT 1000
-
 int	key_hook(int keycode, fdf *data)
 {
   	if (keycode == 65307 || keycode == 53)
@@ -44,7 +41,6 @@ int	key_hook(int keycode, fdf *data)
 	if (keycode == 118) // Tecla c para diminuir o fator de cor
 		data->color_factor -= 10;
 
-    mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	draw(data);
    	printf("%d\n", keycode);
 	return (0);
@@ -57,27 +53,30 @@ int    main(int argc, char **argv)
     data = (fdf*)malloc(sizeof(fdf));
     read_file(argv[1], data);
 
-	data->mlx_ptr = mlx_init();
-	data->win_ptr = mlx_new_window(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "FDF");
-	data->zoom = 20;
+    data->mlx_ptr = mlx_init();
+    data->win_ptr = mlx_new_window(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "FDF");
+    data->zoom = 20;
     data->angle_x = 0.2; // Valor inicial do ângulo X (radiano)
-	data->angle_y = 0.2; // Valor inicial do ângulo Y (radiano)
+    data->angle_y = 0.2; // Valor inicial do ângulo Y (radiano)
     data->depth_factor = 1.0; // Valor inicial da profundidade
-	data->color_factor = 100;
+    data->color_factor = 100;
 
-	// Calculo de deslocamento para centralizar o mapa
-	float map_center_x = (data->width - 1) * data->zoom / 50.0;
-	float map_center_y = (data->height - 1) * data->zoom / 50.0;
+    // Calculo de deslocamento para centralizar o mapa
+    float map_center_x = (data->width - 1) * data->zoom / 50.0;
+    float map_center_y = (data->height - 1) * data->zoom / 50.0;
 
-	data->shift_x = (WIN_WIDTH / 2) - map_center_x;
-	data->shift_y = (WIN_HEIGHT / 2) - map_center_y;
+    data->shift_x = (WIN_WIDTH / 2) - map_center_x;
+    data->shift_y = (WIN_HEIGHT / 2) - map_center_y;
 
-	data->mouse_pressed = 0;
+    data->mouse_pressed = 0;
 
-	draw(data);
-	mlx_key_hook(data->win_ptr, key_hook, data);
-	mlx_mouse_hook(data->win_ptr, mouse_press, data);        // Pressionamento do mouse // quando apertar click do mouse inicia modo rotacao
-	// se apertar mouse 3 para o modo rotacao..
-	mlx_hook(data->win_ptr, 6, (1L << 6), mouse_move, data); // Movimento do mouse faz a rotação
-	mlx_loop(data->mlx_ptr);
+    // Criar a imagem
+    data->img_ptr = mlx_new_image(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
+    data->img_data = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->size_line, &data->endian);
+
+    draw(data);
+    mlx_key_hook(data->win_ptr, key_hook, data);
+    mlx_mouse_hook(data->win_ptr, mouse_press, data);
+    mlx_hook(data->win_ptr, 6, (1L << 6), mouse_move, data); // Movimento do mouse faz a rotação
+    mlx_loop(data->mlx_ptr);
 }

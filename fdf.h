@@ -7,6 +7,9 @@
 # include <stdio.h>
 # include <unistd.h>
 
+#define WIN_WIDTH 1920
+#define WIN_HEIGHT 1080
+
 typedef struct
 {
     int    width;
@@ -25,6 +28,11 @@ typedef struct
     int     last_mouse_x;
     int     last_mouse_y;
     int     mouse_pressed;
+    void    *img_ptr;       // Adicionado para a imagem
+    char    *img_data;      // Dados da imagem
+    int     bpp;            // Bytes por pixel
+    int     size_line;      // Tamanho da linha
+    int     endian;         // Endianness
 }    fdf;
 
 void    read_file(char *file_name, fdf *data);
