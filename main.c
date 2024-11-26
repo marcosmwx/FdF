@@ -3,20 +3,11 @@
 // compilador
 // gcc *.c libft/libft.a minilibx-linux/libmlx.a -lX11 -lXext -lm
 
-int	exit_from_x(t_fdf_gen *gen_data)
-{
-	mlx_destroy_window(gen_data->data->mlx_ptr, gen_data->data->win_ptr);
-	mlx_destroy_display(gen_data->data->mlx_ptr);
-	free(gen_data->data->mlx_ptr);
-	exit(0);
-	return(0);
-}
-
 int	key_hook(int keycode, t_fdf_gen *gen_data)
 {
 	if (keycode == 65307 || keycode == 53)
 	{
-		printf("Tecla %d - Esc pressionada! Fechando...\n", keycode);
+		// printf("Tecla %d - Esc pressionada! Fechando...\n", keycode);
 		mlx_destroy_window(gen_data->data->mlx_ptr, gen_data->data->win_ptr);
 		mlx_destroy_display(gen_data->data->mlx_ptr);
 		free(gen_data->data->mlx_ptr);
@@ -55,6 +46,16 @@ int	key_hook(int keycode, t_fdf_gen *gen_data)
 	return (0);
 }
 
+int	exit_from_x(t_fdf_gen *gen_data)
+{
+	mlx_destroy_image(gen_data->data->mlx_ptr, gen_data->img_data->img_ptr);
+	mlx_destroy_window(gen_data->data->mlx_ptr, gen_data->data->win_ptr);
+	mlx_destroy_display(gen_data->data->mlx_ptr);
+	free(gen_data->data->mlx_ptr);
+	exit(0);
+	return(1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_fdf_gen *gen_data;
@@ -91,11 +92,11 @@ int	main(int argc, char **argv)
 			&gen_data->img_data->size_line, &gen_data->img_data->endian);
 
 	draw(gen_data->data, gen_data->graph, gen_data->color_set, gen_data->img_data);
-	mlx_mouse_hook(gen_data->data->win_ptr, mouse_press, gen_data->data);
-	mlx_hook(gen_data->data->win_ptr, 6, (1L << 6), mouse_move, gen_data->data);
-	mlx_hook(gen_data->data->win_ptr, 17, 0, exit_from_x, gen_data->data);
+	mlx_mouse_hook(gen_data->data->win_ptr, mouse_press, gen_data);
+	mlx_hook(gen_data->data->win_ptr, 6, (1L << 6), mouse_move, gen_data);
+	mlx_hook(gen_data->data->win_ptr, 17, 0, exit_from_x, gen_data);
 	mlx_key_hook(gen_data->data->win_ptr, key_hook, gen_data);
-		// Movimento do mouse faz a rotação
+	// Movimento do mouse faz a rotação
 	mlx_loop(gen_data->data->mlx_ptr);
 }
 

@@ -62,8 +62,7 @@ typedef struct s_fdf_gen {
 void		read_file(char *file_name, t_fdf *data);
 void		bresehnam(float x, float y, float x1, float y1, t_fdf *data,  t_graph *graph,  t_color *color_set,  t_img   *img_data);
 void		draw(t_fdf *data,  t_graph *graph,  t_color *color_set,  t_img *img_data);
-int			mouse_move(int x, int y,t_fdf *data, t_graph *graph, t_color *color_set, t_mouse *mouse_set, t_img  *img_data);
-int			mouse_press(int button, int x, int y, t_mouse *mouse_set);
-int			mouse_release(int button, int x, int y, t_fdf *data);
+int			mouse_move(int x, int y, t_fdf_gen *gen_data);
+int			mouse_press(int button, int x, int y, t_fdf_gen *gen_data);
 
 #endif
