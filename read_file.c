@@ -35,6 +35,7 @@ int	check_line_width_consistency(int fd, int width)
 		{
 			write(1, "Erro: Linhas com larguras inconsistentes.\n", 43);
 			free(line);
+			close(fd);
 			return (-1);
 		}
 		free(line);

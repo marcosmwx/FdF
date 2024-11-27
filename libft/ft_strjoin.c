@@ -1,6 +1,6 @@
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, const char *s2)
 {
 	char	*buff;
 	size_t	sz1;
@@ -24,5 +24,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	buff[sz1 + sz2] = '\0';
+	free(s1);
 	return (buff);
 }

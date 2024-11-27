@@ -24,7 +24,7 @@
 int     ft_wdcounter(char const *s, char c);
 int		ft_atoi(const char *nptr);
 char	**ft_split(char const *s, char c);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, const char *s2);
 size_t	ft_strlen(const char *s);
 char	*get_next_line(int fd);
 char	*ft_copy_from(char *src, int n);
