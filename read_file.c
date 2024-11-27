@@ -1,26 +1,8 @@
+/*
+Fazer um tratamento de erro, retornar -1 para e chamar uma fucao de safe malloc
+*/
+
 #include "fdf.h"
-#include <fcntl.h>
-#include <stdlib.h>
-
-
-static int	ft_wdcounter(char const *s, char c)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (s[i] != '\0')
-	{
-		while (s[i] != '\0' && s[i] == c)
-			i++;
-		if (s[i] != '\0')
-			j++;
-		while (s[i] != '\0' && s[i] != c)
-			i++;
-	}
-	return (j);
-}
 
 int	get_height(char *file_name)
 {
@@ -41,23 +23,26 @@ int	get_height(char *file_name)
 	return (height);
 }
 
-int check_line_width_consistency(int fd, int width) {
+int	check_line_width_consistency(int fd, int width)
+{
 	char *line;
 	int current_width;
 
-	while ((line = get_next_line(fd)) != NULL) {
+	while ((line = get_next_line(fd)) != NULL)
+	{
 		current_width = ft_wdcounter(line, ' ');
-		if (current_width != width) {
+		if (current_width != width)
+		{
 			write(1, "Erro: Linhas com larguras inconsistentes.\n", 43);
 			free(line);
-			return -1;
+			return (-1);
 		}
 		free(line);
 	}
-	return width;
+	return (width);
 }
 
-int get_width(char *file_name)
+int	get_width(char *file_name)
 {
 	int fd;
 	char *line;
@@ -65,25 +50,25 @@ int get_width(char *file_name)
 
 	fd = open(file_name, O_RDONLY, 0);
 	if (fd < 0)
-		return 0;
+		return (0);
 	line = get_next_line(fd);
-	if (line == NULL)// talvez tirar
-    {
+	if (line == NULL) // talvez tirar
+	{
 		write(1, "Erro: Arquivo vazio em get_width.\n", 34);
 		close(fd);
-		return 0;
+		return (0);
 	}
 	if (!line)
-		return -1;
+		return (-1);
 	width = ft_wdcounter(line, ' ');
 	free(line);
 	if (check_line_width_consistency(fd, width) == -1)
-    {
+	{
 		close(fd);
-		return 0;
+		return (0);
 	}
 	close(fd);
-	return width;
+	return (width);
 }
 
 void	fill_matriz(int *z_line, char *line, int width)
@@ -107,7 +92,7 @@ void	fill_matriz(int *z_line, char *line, int width)
 	free(nums);
 }
 
-void	read_file(char *file_name, t_fdf *data)
+int	read_file(char *file_name, t_fdf *data)
 {
 	int fd;
 	int i;
@@ -119,7 +104,7 @@ void	read_file(char *file_name, t_fdf *data)
 	if (!data->z_matriz)
 	{
 		write(1, "Erro malloc z_matriz", 20);
-		return ;
+		return (0);
 	}
 	i = -1;
 	while (++i < data->height)
@@ -133,4 +118,5 @@ void	read_file(char *file_name, t_fdf *data)
 		i++;
 	}
 	close(fd);
+	return (1);
 }

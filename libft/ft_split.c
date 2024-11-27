@@ -11,28 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-
-static int		words(char const *str, char c)
-{
-	int i;
-	int words;
-
-	words = 0;
-	i = 0;
-	while (str[i])
-	{
-		while (str[i] == c && str[i] != '\0')
-			i++;
-		if (str[i])
-			words++;
-		while (str[i] != c && str[i] != '\0')
-			i++;
-	}
-	return (words);
-}
 
 static char		**memory_giver(char const *str, char c)
 {
@@ -41,7 +19,7 @@ static char		**memory_giver(char const *str, char c)
 	int		i;
 	int		j;
 
-	if ((res = (char **)malloc(sizeof(char*) * (words(str, c) + 1))) == NULL)
+	if ((res = (char **)malloc(sizeof(char*) * (ft_wdcounter(str, c) + 1))) == NULL)
 		return (NULL);
 	i = 0;
 	j = 0;
@@ -73,7 +51,7 @@ char	**ft_split(char const *str, char c)
 
 	if (str == NULL)
 		return (NULL);
-	size = words(str, c);
+	size = ft_wdcounter(str, c);
 	res = memory_giver(str, c);
 	if (res == NULL)
 		return (NULL);
@@ -91,103 +69,3 @@ char	**ft_split(char const *str, char c)
 	}
 	return (res);
 }
-/*
-static int	ft_count_words(char const *s, char c)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (s[i] != '\0')
-	{
-		while (s[i] != '\0' && s[i] == c)
-			i++;
-		if (s[i] != '\0')
-			j++;
-		while (s[i] != '\0' && s[i] != c)
-			i++;
-	}
-	return (j);
-}
-
-static char	*ft_strndup(const char *s, int n)
-{
-	int		i;
-	char	*dup;
-
-	dup = (char *)malloc(sizeof(char) * (n + 1));
-	if (!dup)
-		return (NULL);
-	i = 0;
-	while (i < n)
-	{
-		dup[i] = s[i];
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
-}
-
-static void	ft_allocw(char **new, char *s, char c)
-{
-	int	i;
-	int	j;
-	int	start;
-
-	i = 0;
-	j = 0;
-	while (s[i] != '\0')
-	{
-		while (s[i] != '\0' && s[i] == c)
-			i++;
-		start = i;
-		while (s[i] != '\0' && s[i] != c)
-			i++;
-		if (start != i)
-		{
-			new[j] = ft_strndup(s + start, i - start);
-			j++;
-		}
-	}
-	new[j] = NULL;
-}
-
-char	**ft_split(char const *s, char c)
-{
-	int		words;
-	char	**new;
-
-	if (!s)
-		return (NULL);
-	words = ft_count_words(s, c);
-	new = (char **)malloc(sizeof(char *) * (words + 1));
-	if (!new)
-		return (NULL);
-	ft_allocw(new, (char *)s, c);
-	return (new);
-}
-*/
-
-/*
-#include <stdio.h>
-int	main(void)
-{
-        char **result;
-//        char str[] = 0;
-        int i = 1;
-
-        result = ft_split(0, '_');
-        if (result)
-        {
-                while (result[i] != NULL)
-                {
-                        printf("Palavra %d: %s\n", i, result[i]);
-                        free(result[i]);
-                        i++;
-                }
-                free(result);
-        }
-        return (0);
-}
-*/
