@@ -41,12 +41,6 @@ int	get_height(char *file_name)
 	return (height);
 }
 
-int calculate_line_width(char *line) {
-	if (!line)
-		return -1;
-	return ft_wdcounter(line, ' ');
-}
-
 int check_line_width_consistency(int fd, int width) {
 	char *line;
 	int current_width;
