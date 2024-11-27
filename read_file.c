@@ -46,7 +46,7 @@ int check_line_width_consistency(int fd, int width) {
 	int current_width;
 
 	while ((line = get_next_line(fd)) != NULL) {
-		current_width = calculate_line_width(line);
+		current_width = ft_wdcounter(line, ' ');
 		if (current_width != width) {
 			write(1, "Erro: Linhas com larguras inconsistentes.\n", 43);
 			free(line);
