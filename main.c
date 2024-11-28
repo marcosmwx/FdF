@@ -48,9 +48,9 @@ int	key_hook(int keycode, t_fdf_gen *gen_data)
 		exit_with_safe(gen_data);
 	}
 	if (keycode == 105) // Tecla 'i' para aumentar a profundidade
-		gen_data->graph->depth_factor += 10;
+		gen_data->graph->depth_factor += 0.4;
 	if (keycode == 111) // Tecla 'o' para diminuir a profundidade
-		gen_data->graph->depth_factor -= 10;
+		gen_data->graph->depth_factor -= 0.4;
 	if (keycode == 65362) // Seta para cima rotaciona para cima
 		gen_data->graph->angle_x += 0.1;
 	if (keycode == 65364) // Seta para baixo rotaciona para baixo
@@ -68,9 +68,9 @@ int	key_hook(int keycode, t_fdf_gen *gen_data)
 	if (keycode == 100) // tecla d movimenta para direita
 		gen_data->graph->shift_x += 10;
 	if (keycode == 122) // tecla z da zoom
-		gen_data->graph->zoom += 10;
+		gen_data->graph->zoom += 5;
 	if (keycode == 120) // tecla x diminui o zoom
-		gen_data->graph->zoom -= 10;
+		gen_data->graph->zoom -= 5;
 	if (keycode == 99) // Tecla c para aumentar o fator de cor
 		gen_data->color_set->color_factor += 10;
 	if (keycode == 118) // Tecla c para diminuir o fator de cor
@@ -96,11 +96,11 @@ int	main(int argc, char **argv)
 
 	gen_data->data->mlx_ptr = mlx_init();
 	gen_data->data->win_ptr = mlx_new_window(gen_data->data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "FdF");
-	gen_data->graph->zoom = 20;
+	gen_data->graph->zoom = 5;
 	gen_data->graph->angle_x = 0.2;      // Valor inicial do ângulo X (radiano)
 	gen_data->graph->angle_y = 0.2;      // Valor inicial do ângulo Y (radiano)
-	gen_data->graph->depth_factor = 1.0; // Valor inicial da profundidade
-	gen_data->color_set->color_factor = 100;
+	gen_data->graph->depth_factor = 0.4; // Valor inicial da profundidade
+	gen_data->color_set->color_factor = 80;
 
 	// Calculo de deslocamento para centralizar o mapa
 	float map_center_x = (gen_data->data->width - 1) * gen_data->graph->zoom / 50.0;

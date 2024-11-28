@@ -15,7 +15,7 @@
 # define LIBFT_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1000000
 # endif
 
 # include <stdlib.h>
