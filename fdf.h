@@ -9,7 +9,7 @@
 #include <fcntl.h>
 #include <math.h>
 
-#    define NF_MAP "Can't execute the program, the context dont have a map file"
+#	define NF_MAP "Can't execute the program, the context dont have a map file"
 
 typedef struct s_point
 {
@@ -77,5 +77,5 @@ void		apply_shift(float *x, float *y, float *x1, float *y1, t_graph *graph);
 int			check_line_width_consistency(int fd, int width);
 int			get_height(char *file_name);
 int			get_width(char *file_name);
-
+int 		free_pointer_server(t_fdf_gen *gen_data);
 #endif

@@ -1,11 +1,12 @@
 #include "fdf.h"
-
+// isometric
+// key states
 
 static void	mlx_pack_hooks(t_fdf_gen *gen_data)
 {
 	mlx_mouse_hook(gen_data->data->win_ptr, mouse_press, gen_data);
 	mlx_hook(gen_data->data->win_ptr, 6, (1L << 6), mouse_move, gen_data);
-	mlx_hook(gen_data->data->win_ptr, 17, 0, free_resources, gen_data);
+	mlx_hook(gen_data->data->win_ptr, 17, 0, mlx_loop_end, gen_data->data->mlx_ptr);
 	mlx_key_hook(gen_data->data->win_ptr, key_hook, gen_data);
 }
 
@@ -17,7 +18,6 @@ static void	make_img(t_fdf_gen *gen_data)
 	draw(gen_data->data, gen_data->graph, gen_data->img_data);
 }
 
-
 static void init_variables(t_fdf_gen *gen_data)
 {
 	float map_center_x;
@@ -25,43 +25,19 @@ static void init_variables(t_fdf_gen *gen_data)
 
     map_center_x = 0;
 	map_center_y = 0;
-
 	gen_data->graph->zoom = 3;
-	gen_data->graph->angle_x = 0.2;      // Valor inicial do ângulo X (radiano)
-	gen_data->graph->angle_y = 0.2;      // Valor inicial do ângulo Y (radiano)
-	gen_data->graph->depth_factor = 0.4; // Valor inicial da profundidade
+	gen_data->graph->angle_x = 0.2;
+	gen_data->graph->angle_y = 0.2;
+	gen_data->graph->depth_factor = 0.4;
 	gen_data->mouse_set->mouse_pressed = 0;
-	map_center_x = (gen_data->data->width - 1) * gen_data->graph->zoom / 50.0; // Calculo de deslocamento para centralizar o mapa
+	map_center_x = (gen_data->data->width - 1) * gen_data->graph->zoom / 50.0;
 	map_center_y = (gen_data->data->height - 1) * gen_data->graph->zoom / 50.0;
 	gen_data->graph->shift_x = (gen_data->data->win_width / 2) - map_center_x;
 	gen_data->graph->shift_y = (gen_data->data->win_height / 2) - map_center_y;
 }
 
-static int	free_pointer_server(t_fdf_gen *gen_data)
-{
-	if (!gen_data->data)
-		return (0);
-	if (gen_data->data->mlx_ptr && gen_data->data->win_ptr)
-	{
-		mlx_destroy_image(gen_data->data->mlx_ptr, gen_data->img_data->img_ptr);
-		mlx_destroy_window(gen_data->data->mlx_ptr, gen_data->data->win_ptr);
-		gen_data->data->win_ptr = NULL;
-	}
-	if (gen_data->data->mlx_ptr)
-	{
-    	mlx_destroy_display(gen_data->data->mlx_ptr);
-		free(gen_data->data->mlx_ptr);
-		gen_data->data->mlx_ptr = NULL;
-	}
-	if (gen_data->data)
-		free_data(gen_data->data);
-	gen_data->data = NULL;
-    return (0);
-}
-
 static int	start_server(t_fdf_gen *gen_data)
 {
-
 	gen_data->data->mlx_ptr = mlx_init();
 	if (!gen_data->data->mlx_ptr)
 		return (0);
@@ -80,13 +56,13 @@ static int	start_server(t_fdf_gen *gen_data)
 
 int	main(int argc, char **argv)
 {
+	t_fdf_gen gen_data;
+
 	if (argc != 2)
 	{
 		ft_putstr(NF_MAP);
 		return (0);
 	}
-
-	t_fdf_gen gen_data;
 	gen_data.data = (t_fdf *)malloc(sizeof(t_fdf));
 	gen_data.graph = (t_graph *)malloc(sizeof(t_graph));
 	gen_data.mouse_set = (t_mouse *)malloc(sizeof(t_mouse));

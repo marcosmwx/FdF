@@ -14,6 +14,7 @@ INCLUDE= includes
 SRCS=	main.c \
 		src/free/free_data.c \
 		src/free/free_resources.c \
+		src/free/free_pointer_server.c \
 		src/free/clear_image.c \
 		src/key/key_hook.c \
 		src/key/mouse_control.c \
