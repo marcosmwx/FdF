@@ -36,11 +36,11 @@ float	mod(float i)
 	return (i);
 }
 
-void	set_pixel(t_img *img_data, int x, int y, int color)
+void	set_pixel(t_fdf *data, t_img *img_data, int x, int y, int color)
 {
 	int	index;
 
-	if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
+	if (x >= 0 && x < data->win_width && y >= 0 && y < data->win_height)
 	{
 		index = (y * img_data->size_line + x * (img_data->bpp / 8));
 		*(int *)(img_data->img_data + index) = color; // Define a cor do pixel
@@ -87,7 +87,7 @@ void	bresehnam(float x, float y, float x1, float y1, t_fdf *data, t_graph *graph
 	// Desenhar linha com as cores dos pontos
 	while ((int)(x - x1) || (int)(y - y1))
 	{
-		set_pixel(img_data, (int)x, (int)y, start_color);  // Define a cor do pixel usando a cor do ponto inicial
+		set_pixel(data, img_data, (int)x, (int)y, start_color);  // Define a cor do pixel usando a cor do ponto inicial
 		x += x_step;
 		y += y_step;
 	}
@@ -98,7 +98,7 @@ void	bresehnam(float x, float y, float x1, float y1, t_fdf *data, t_graph *graph
 void	clear_image(t_fdf *data, t_img *img_data)
 {
 	mlx_destroy_image(data->mlx_ptr, img_data->img_ptr);
-	img_data->img_ptr = mlx_new_image(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
+	img_data->img_ptr = mlx_new_image(data->mlx_ptr, data->win_width, data->win_height);
 	img_data->img_data = mlx_get_data_addr(img_data->img_ptr, &img_data->bpp, &img_data->size_line, &img_data->endian);
 }
 

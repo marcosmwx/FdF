@@ -12,6 +12,7 @@ SRC =				ft_atoi.c ft_split.c get_next_line.c \
 					ft_strdup.c ft_strjoin.c ft_wdcounter.c \
 					ft_strchr.c \
 					ft_substr.c \
+					ft_putstr.c
 
 OBJS = $(SRC:.c=.o)
 

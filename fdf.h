@@ -8,8 +8,7 @@
 # include <unistd.h>
 #include <fcntl.h>
 
-#  define WIN_WIDTH 920
-#  define WIN_HEIGHT 760
+#    define NF_MAP "Can't execute the program, the context dont have a map file"
 
 typedef struct s_point
 {
@@ -20,7 +19,9 @@ typedef struct s_point
 typedef struct s_fdf
 {
 	int        width;
+    int        win_width;
 	int        height;
+    int        win_height;
 	t_point    **z_matriz; // Matriz contendo cor e valor
 	void       *mlx_ptr;
 	void       *win_ptr;

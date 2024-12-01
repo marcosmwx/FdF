@@ -30,5 +30,6 @@ char	*get_next_line(int fd);
 char	*ft_copy_from(char *src, int n);
 char	*ft_copy_until(char *src, int n);
 char	*ft_strdup(const char *src);
+void    ft_putstr(char *s);
 
 #endif
