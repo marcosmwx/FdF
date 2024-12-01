@@ -1,7 +1,3 @@
-/*
-Fazer um tratamento de erro, retornar -1 para e chamar uma fucao de safe malloc
-*/
-
 #include "fdf.h"
 
 int	get_height(char *file_name)
@@ -72,13 +68,13 @@ int	get_width(char *file_name)
 	return (width);
 }
 
-void	fill_matriz(int *z_line, char *line, int width)
+void    fill_matriz(t_point *z_line, char *line, int width)
 {
-	char **nums;
-	int i;
+	char    **nums;
+	int     i;
 
-	i = 0;
-	nums = ft_split(line, ' ');
+    i = 0;
+	nums = ft_split(line, ' '); // Divide a linha em posix
 	if (!nums)
 	{
 		write(1, "Erro: ft_split retornou NULL.\n", 30);
@@ -86,22 +82,41 @@ void	fill_matriz(int *z_line, char *line, int width)
 	}
 	while (nums[i] && i < width)
 	{
-		z_line[i] = ft_atoi(nums[i]);
+		char **value_and_color = ft_split(nums[i], ','); // Separa valor e cor
+        if (!value_and_color)
+        {
+          write(1, "Erro: ft_split retornou NULL[2].\n", 30);
+          free(nums[i]);
+          continue;
+        }
+		z_line[i].value = ft_atoi(value_and_color[0]);   // Primeiro elemento é o valor Z
+		// Verifica se há cor definida
+		if (value_and_color[1])
+			z_line[i].hex = ft_strdup(value_and_color[1]); // Duplica a cor para o hex
+		else
+			z_line[i].hex = ft_strdup("0xFFFFFF"); // Cor padrão (branco)
+
+		free(value_and_color[0]);
+		if (value_and_color[1])
+			free(value_and_color[1]);
+		free(value_and_color);
 		free(nums[i]);
 		i++;
 	}
 	free(nums);
 }
 
-int	read_file(char *file_name, t_fdf *data)
+int read_file(char *file_name, t_fdf *data)
 {
-	int fd;
-	int i;
-	char *line;
+	int     fd;
+	int     i;
+	char    *line;
 
 	data->height = get_height(file_name);
 	data->width = get_width(file_name);
-	data->z_matriz = (int **)malloc(sizeof(int *) * data->height);
+
+	// Aloca matriz de t_point
+	data->z_matriz = (t_point **)malloc(sizeof(t_point *) * data->height);
 	if (!data->z_matriz)
 	{
 		write(1, "Erro malloc z_matriz", 20);
@@ -109,8 +124,9 @@ int	read_file(char *file_name, t_fdf *data)
 	}
 	i = -1;
 	while (++i < data->height)
-		data->z_matriz[i] = (int *)malloc(sizeof(int) * (data->width));
-	fd = open(file_name, O_RDONLY, 0);
+		data->z_matriz[i] = (t_point *)malloc(sizeof(t_point) * data->width);
+
+	fd = open(file_name, O_RDONLY);
 	i = 0;
 	while ((line = get_next_line(fd)) != NULL)
 	{
