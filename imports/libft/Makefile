@@ -10,7 +10,7 @@ RM = rm -fr
 SRC =				ft_atoi.c ft_split.c get_next_line.c \
 					ft_strlen.c ft_copy_from.c ft_copy_until.c \
 					ft_strdup.c ft_strjoin.c ft_wdcounter.c \
-					ft_strchr.c \
+					ft_atoi_hexa.c	ft_strchr.c \
 					ft_substr.c \
 					ft_putstr.c
 

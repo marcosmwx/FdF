@@ -14,9 +14,13 @@ INCLUDE= includes
 SRCS=	main.c \
 		src/free/free_data.c \
 		src/free/free_resources.c \
+		src/free/clear_image.c \
 		src/key/key_hook.c \
 		src/key/mouse_control.c \
 		src/map/read_file.c \
+		src/map/read_file_utils.c \
+		src/graph/draw_trace_lines.c \
+		src/graph/draw_utils.c \
 		src/graph/draw.c
 
 
@@ -42,8 +46,8 @@ clean:
 	@rm -f $(OBJS)
 
 fclean: clean
-	@make fclean -C $(LIBFT_PATH)
-	@make clean -C $(MINILIB_PATH)
+	@make clean -C $(LIBFT_PATH)
+	#@make clean -C $(MINILIB_PATH)
 	@rm -rf $(NAME)
 
 r: $(NAME)

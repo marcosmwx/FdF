@@ -57,4 +57,3 @@ int	main(void)
 	free(data.mlx_ptr);
 	return (0);
 }
-

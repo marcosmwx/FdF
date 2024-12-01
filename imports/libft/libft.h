@@ -23,6 +23,7 @@
 
 int     ft_wdcounter(char const *s, char c);
 int		ft_atoi(const char *nptr);
+int     ft_atoi_hexa(const char *str);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char *s1, const char *s2);
 size_t	ft_strlen(const char *s);

@@ -3,7 +3,8 @@
 int	key_hook(int keycode, t_fdf_gen *gen_data)
 {
     if (keycode == 65307 || keycode == 53)
-        return(free_resources(gen_data));
+        return (mlx_loop_end(gen_data->data->mlx_ptr));
+        //return(free_resources(gen_data));
     if (keycode == 105) // Tecla 'i' para aumentar a profundidade
         gen_data->graph->depth_factor += 0.4;
     if (keycode == 111) // Tecla 'o' para diminuir a profundidade
