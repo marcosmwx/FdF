@@ -2,7 +2,7 @@
 
 // compilador
 // gcc *.c libft/libft.a minilibx-linux/libmlx.a -lX11 -lXext -lm
-
+// cc *.c libft/libft.a  src/free/free_data.c src/free/free_resources.c src/key/key_hook.c minilibx-linux/libmlx.a -lX11 -lXext -lm
 static int	free_pointer_server(t_fdf_gen *gen_data)
 {
     mlx_destroy_display(gen_data->data->mlx_ptr);
@@ -38,16 +38,23 @@ static void init_variables(t_fdf_gen gen_data)
     gen_data.mouse_set->mouse_pressed = 0;
 
 	// Calculo de deslocamento para centralizar o mapa
-	float map_center_x = (gen_data.data->width - 1) * gen_data.graph->zoom / 50.0;
-	float map_center_y = (gen_data.data->height - 1) * gen_data.graph->zoom / 50.0;
+	float map_center_x;
+    map_center_x = (gen_data.data->width - 1) * gen_data.graph->zoom / 50.0;
+	float map_center_y;
+    map_center_y = (gen_data.data->height - 1) * gen_data.graph->zoom / 50.0;
 	gen_data.graph->shift_x = (WIN_WIDTH / 2) - map_center_x;
 	gen_data.graph->shift_y = (WIN_HEIGHT / 2) - map_center_y;
 }
 
 int	main(int argc, char **argv)
 {
-	t_fdf_gen gen_data;
+  	if (argc != 2)
+    {
+     	write(1, "Can't execute the program, the context dont have a map file\n", 59);
+        return (0);
+    }
 
+	t_fdf_gen gen_data;
 	gen_data.data = (t_fdf *)malloc(sizeof(t_fdf));
 	gen_data.graph = (t_graph *)malloc(sizeof(t_graph));
 	gen_data.mouse_set = (t_mouse *)malloc(sizeof(t_mouse));
@@ -58,9 +65,7 @@ int	main(int argc, char **argv)
 		free_resources(&gen_data);
       	free_pointer_server(&gen_data);
      }
-
     init_variables(gen_data);
-	// Criar a imagem
 	make_img(&gen_data);
     mlx_pack_hooks(&gen_data);
 	mlx_loop(gen_data.data->mlx_ptr);

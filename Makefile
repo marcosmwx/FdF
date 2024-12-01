@@ -14,7 +14,10 @@ INCLUDE= includes
 SRCS=	main.c \
 		src/free/free_data.c \
 		src/free/free_resources.c \
-		key/key_hook.c
+		src/key/key_hook.c \
+		src/key/mouse_control.c \
+		src/map/read_file.c \
+		src/graph/draw.c
 
 
 
@@ -29,11 +32,11 @@ $(NAME): $(OBJS)
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
-$(MINILIB_A):
-	@make -C $(MINILIB_PATH)
+#$(MINILIB_A):
+#	@make -C $(MINILIB_PATH)
 
-$(LIBFT_A):
-	@make -C $(LIBFT_PATH)
+#$(LIBFT_A):
+#	@make -C $(LIBFT_PATH)
 
 clean:
 	@rm -f $(OBJS)
@@ -45,6 +48,6 @@ fclean: clean
 
 r: $(NAME)
 	@clear
-	@./$(NAME) ./test.txt
+	@./$(NAME) ./mwx.fdf
 
 c: fclean $(NAME)

@@ -1,4 +1,4 @@
-#include "fdf.h"
+#include "../../fdf.h"
 #include <math.h>
 
 #define MAX(a, b) (a > b ? a : b)
@@ -54,14 +54,12 @@ void	bresehnam(float x, float y, float x1, float y1, t_fdf *data, t_graph *graph
 	int		max;
 	int		z, z1;
 	int start_color;
-	int end_color;
 
 	// Obtém os valores de Z para os pontos
 	z = data->z_matriz[(int)y][(int)x].value;
 	z1 = data->z_matriz[(int)y1][(int)x1].value;
 	// Obtém as cores dos pontos diretamente da estrutura
 	start_color = strtol(data->z_matriz[(int)y][(int)x].hex, NULL, 16);  // Converte a cor hex para um valor inteiro
-	end_color = strtol(data->z_matriz[(int)y1][(int)x1].hex, NULL, 16);
 
 	// ------ zoom count ------ //
 	x *= graph->zoom;

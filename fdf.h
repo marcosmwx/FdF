@@ -1,8 +1,8 @@
 #ifndef FDF_H
 # define FDF_H
 
-# include "libft/libft.h"
-# include "minilibx-linux/mlx.h"
+# include "imports/libft/libft.h"
+# include "imports/minilibx-linux/mlx.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>

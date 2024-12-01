@@ -1,4 +1,4 @@
-#include "fdf.h"
+#include "../../fdf.h"
 
 int	mouse_move(int x, int y, t_fdf_gen *gen_data)
 {
