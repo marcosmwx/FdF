@@ -35,7 +35,7 @@ typedef struct s_fdf
     int        win_width;
 	int        height;
     int        win_height;
-	t_point    **z_matrix; // matrix contendo cor e valor
+	t_point    **z_matrix;
 	void       *mlx_ptr;
 	void       *win_ptr;
 } t_fdf;
@@ -54,7 +54,7 @@ typedef struct s_mouse
 {
 	int		last_mouse_x;
 	int		last_mouse_y;
-	int		mouse_pressed;
+	int		click_active;
 }			t_mouse;
 
 typedef struct s_img
@@ -90,4 +90,8 @@ int			check_line_width_consistency(int fd, int width);
 int			get_height(char *file_name);
 int			get_width(char *file_name);
 int 		free_pointer_server(t_fdf_gen *gen_data);
+int			mouse_move_event(int x, int y, void *param);
+int			set_mouse_up(int button, int x, int y, void *param);
+int			set_mouse_down(int button, int x, int y, void *param);
+void		pack_hooks(t_fdf_gen *gen_data);
 #endif

@@ -12,10 +12,15 @@
 
 #include "../../fdf.h"
 
-int	free_resources(t_fdf_gen *gen_data)
+int free_resources(t_fdf_gen *gen_data)
 {
-    free(gen_data->graph);
-    free(gen_data->mouse_set);
-    free(gen_data->img_data);
-    return(1);
+    if (gen_data->img_data)
+        free(gen_data->img_data);
+    if (gen_data->mouse_set)
+        free(gen_data->mouse_set);
+    if (gen_data->graph)
+        free(gen_data->graph);
+    if (gen_data->data)
+        free(gen_data->data);
+    return (1);
 }

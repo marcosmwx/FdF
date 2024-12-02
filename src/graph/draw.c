@@ -58,7 +58,6 @@ static void	bresehnam(float x, float y, float x1, float y1, t_fdf *data, t_graph
 	isometric(&x1, &y1, z1, graph);
 	apply_shift(&x, &y, &x1, &y1, graph);
 	trace_lines(&x_step, &y_step, x, y, &x1, &y1, data, img_data, start_color);
-
 }
 
 void	draw(t_fdf *data, t_graph *graph, t_img *img_data)
