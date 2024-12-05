@@ -42,7 +42,7 @@ static void	set_pixel(t_fdf *data, t_img *img_data, int x, int y, int color)
 void	trace_lines(float *x_step, float *y_step, float x, float y, float *x1, float *y1, t_fdf *data, t_img *img_data, int start_color)
 {
 	int		max;
-	
+
 	max = 0;
 	*x_step = *x1 - x;
 	*y_step = *y1 - y;

@@ -65,26 +65,26 @@ static void	init_get_resources_from_file(t_fdf *data, char *file_name)
 
 int read_file(char *file_name, t_fdf *data)
 {
-	int     fd;
-	int     i;
-	char    *line;
+	int fd;
+	char *line;
+	int i = 0;
 
 	init_get_resources_from_file(data, file_name);
-	data->z_matrix = (t_point **)malloc(sizeof(t_point *) * data->height);
+	data->z_matrix = (t_point *)malloc(sizeof(t_point) * data->height * data->width); // Alocação contígua
 	if (!data->z_matrix)
 		return (0);
-	i = -1;
-	while (++i < data->height)
-	{
-		data->z_matrix[i] = (t_point *)malloc(sizeof(t_point) * data->width);
-		if (!data->z_matrix[i])
-			return (0);
-	}
 	fd = open(file_name, O_RDONLY);
-	i = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	if (fd < 0)
 	{
-		fill_matrix(data->z_matrix[i], line, data->width);
+		free(data->z_matrix);
+		return (0);
+	}
+	while (i < data->height)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break;
+		fill_matrix(&data->z_matrix[i * data->width], line, data->width);
 		free(line);
 		i++;
 	}

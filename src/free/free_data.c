@@ -14,28 +14,20 @@
 
 void free_data(t_fdf *data)
 {
-    int i;
-    int j;
+    int i = 0;
 
-    if (!(data))
-        return ;
-    if ((data)->z_matrix)
+    if (!data)
+        return;
+    if (data->z_matrix)
     {
-        i = 0;
-        while (i < (data)->height)
+        while (i < data->height * data->width)
         {
-            j = 0;
-            while (j < (data)->width)
-            {
-                if ((data)->z_matrix[i][j].hex)
-                    free((data)->z_matrix[i][j].hex); // Libera a string hex
-                j++;
-            }
-            free((data)->z_matrix[i]); // Libera a linha da matrix
+            if (data->z_matrix[i].hex)
+                free(data->z_matrix[i].hex);
             i++;
         }
-        free((data)->z_matrix); // Libera o ponteiro da matrix
+        free(data->z_matrix);
     }
-    free(data); // Libera a estrutura principal
+    free(data);
     data = NULL;
 }

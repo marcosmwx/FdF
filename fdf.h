@@ -35,7 +35,7 @@ typedef struct s_fdf
     int        win_width;
 	int        height;
     int        win_height;
-	t_point    **z_matrix;
+	t_point    *z_matrix;
 	void       *mlx_ptr;
 	void       *win_ptr;
 } t_fdf;

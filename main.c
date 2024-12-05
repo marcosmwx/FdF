@@ -47,10 +47,10 @@ static int	start_server(t_fdf_gen *gen_data)
 	gen_data->data->mlx_ptr = mlx_init();
 	if (!gen_data->data->mlx_ptr)
 		return (0);
-	gen_data->data->win_width = -1;
-	gen_data->data->win_height = -1;
+	gen_data->data->win_width = 1920;
+	gen_data->data->win_height = 1080;
 	gen_data->data->win_ptr = NULL;
-    mlx_get_screen_size(gen_data->data->mlx_ptr, &gen_data->data->win_width, &gen_data->data->win_height);
+   // mlx_get_screen_size(gen_data->data->mlx_ptr, &gen_data->data->win_width, &gen_data->data->win_height);
 	if (gen_data->data->win_width < 0 || gen_data->data->win_height < 0)
 		return(0);
 	gen_data->data->win_ptr = mlx_new_window(gen_data->data->mlx_ptr, gen_data->data->win_width, gen_data->data->win_height, "FdF");
