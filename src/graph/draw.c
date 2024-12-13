@@ -60,25 +60,25 @@ static void	bresehnam(float x, float y, float x1, float y1, t_fdf *data, t_graph
 	trace_lines(&x_step, &y_step, x, y, &x1, &y1, data, img_data, start_color);
 }
 
-void	draw(t_fdf *data, t_graph *graph, t_img *img_data)
+void	draw(t_fdf_gen *gen_data)
 {
-	clear_image(data, img_data);
+	clear_image(gen_data->data, gen_data->img_data);
 	int x;
 	int y;
 
 	y = 0;
-	while (y < data->height)
+	while (y < gen_data->data->height)
 	{
 		x = 0;
-		while (x < data->width)
+		while (x < gen_data->data->width)
 		{
-			if (x < data->width - 1)
-				bresehnam(x, y, x + 1, y, data, graph, img_data);
-			if (y < data->height - 1)
-				bresehnam(x, y, x, y + 1, data, graph, img_data);
+			if (x < gen_data->data->width - 1)
+				bresehnam(x, y, x + 1, y, gen_data->data, gen_data->graph, gen_data->img_data);
+			if (y < gen_data->data->height - 1)
+				bresehnam(x, y, x, y + 1, gen_data->data, gen_data->graph, gen_data->img_data);
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, img_data->img_ptr, 0, 0);
+	mlx_put_image_to_window(gen_data->data->mlx_ptr, gen_data->data->win_ptr, gen_data->img_data->img_ptr, 0, 0);
 }

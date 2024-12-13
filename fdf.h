@@ -87,7 +87,7 @@ int			mouse_move_event(int x, int y, void *param);
 int			set_mouse_up(int button, int x, int y, void *param);
 int			set_mouse_down(int button, int x, int y, void *param);
 void		free_data(t_fdf *data);
-void		draw(t_fdf *data, t_graph *graph, t_img *img_data);
+void		draw(t_fdf_gen *gen_data);
 void		clear_image(t_fdf *data, t_img *img_data);
 void		trace_lines(float *x_step, float *y_step, float x, float y, float *x1, float *y1, t_fdf *data, t_img *img_data, int start_color);
 void		get_initial_values(int *z, int *z1, int *start_color, float x, float x1, float y, float y1, t_fdf *data);

@@ -69,7 +69,7 @@ int mouse_move_event(int x, int y, void *param)
 		gen_data->graph->angle_y += dx * 0.005;
 		gen_data->mouse_set->last_mouse_x = x;
 		gen_data->mouse_set->last_mouse_y = y;
-		draw(gen_data->data, gen_data->graph, gen_data->img_data);
+		draw(gen_data);
 	}
 	return (0);
 }

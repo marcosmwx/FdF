@@ -41,7 +41,7 @@ int	key_hook(int keycode, t_fdf_gen *gen_data)
         gen_data->graph->zoom += 5;
     if (keycode == 120) // tecla x diminui o zoom
         gen_data->graph->zoom -= 5;
-    draw(gen_data->data, gen_data->graph, gen_data->img_data);
+    draw(gen_data);
     printf("%d\n", keycode);
     return (0);
 }

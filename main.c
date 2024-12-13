@@ -25,7 +25,7 @@ static void	make_img(t_fdf_gen *gen_data)
 			&gen_data->img_data->size_line,
 			&gen_data->img_data->endian
 			);
-	draw(gen_data->data, gen_data->graph, gen_data->img_data);
+	draw(gen_data);
 }
 
 static void	set_variables(t_fdf_gen *gen_data)
