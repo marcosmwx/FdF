@@ -12,22 +12,23 @@
 
 #include "../../fdf.h"
 
-void free_data(t_fdf *data)
+void	free_data(t_fdf *data)
 {
-    int i = 0;
+	int	i;
 
-    if (!data)
-        return;
-    if (data->z_matrix)
-    {
-        while (i < data->height * data->width)
-        {
-            if (data->z_matrix[i].hex)
-                free(data->z_matrix[i].hex);
-            i++;
-        }
-        free(data->z_matrix);
-    }
-    free(data);
-    data = NULL;
+	i = 0;
+	if (!data)
+		return ;
+	if (data->z_matrix)
+	{
+		while (i < data->height * data->width)
+		{
+			if (data->z_matrix[i].hex)
+				free(data->z_matrix[i].hex);
+			i++;
+		}
+		free(data->z_matrix);
+	}
+	free(data);
+	data = NULL;
 }

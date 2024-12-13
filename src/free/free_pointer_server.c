@@ -24,12 +24,12 @@ int	free_pointer_server(t_fdf_gen *gen_data)
 	}
 	if (gen_data->data->mlx_ptr)
 	{
-    	mlx_destroy_display(gen_data->data->mlx_ptr);
+		mlx_destroy_display(gen_data->data->mlx_ptr);
 		free(gen_data->data->mlx_ptr);
 		gen_data->data->mlx_ptr = NULL;
 	}
 	if (gen_data->data)
 		free_data(gen_data->data);
 	gen_data->data = NULL;
-    return (0);
+	return (0);
 }

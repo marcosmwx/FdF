@@ -14,11 +14,14 @@
 
 int	check_line_width_consistency(int fd, int width)
 {
-	char *line;
-	int current_width;
+	char	*line;
+	int		current_width;
 
-	while ((line = get_next_line(fd)) != NULL)
+	while (1)
 	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
 		current_width = ft_wdcounter(line, ' ');
 		if (current_width != width)
 		{
@@ -29,23 +32,26 @@ int	check_line_width_consistency(int fd, int width)
 		}
 		free(line);
 	}
+	close(fd);
 	return (width);
 }
 
 int	get_height(char *file_name)
 {
-	char *line;
-	int fd;
-	int height;
+	char	*line;
+	int		fd;
+	int		height;
 
 	fd = open(file_name, O_RDONLY, 0);
 	if (fd < 0)
 		return (-1);
 	height = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		height++;
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (height);
@@ -53,9 +59,9 @@ int	get_height(char *file_name)
 
 int	get_width(char *file_name)
 {
-	int fd;
-	char *line;
-	int width;
+	char	*line;
+	int		fd;
+	int		width;
 
 	fd = open(file_name, O_RDONLY, 0);
 	if (fd < 0)

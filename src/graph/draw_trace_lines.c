@@ -12,12 +12,12 @@
 
 #include "../../fdf.h"
 
-static int max_func(int a, int b) {
-	if (a > b) {
-		return a;
-	} else {
-		return b;
-	}
+static int	max_func(int a, int b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
 }
 
 static float	mod(float i)
