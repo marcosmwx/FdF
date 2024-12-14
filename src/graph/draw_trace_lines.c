@@ -27,19 +27,22 @@ static float	mod(float i)
 	return (i);
 }
 
-static void	set_pixel(t_fdf *data, t_img *img_data, int x, int y, int color)
+static void	set_pixel(t_coords *coords, t_fdf_gen *gen_data)
 {
 	int	index;
 
 	index = 0;
-	if (x >= 0 && x < data->win_width && y >= 0 && y < data->win_height)
+	if (coords->x >= 0 && coords->x < gen_data->data->win_width
+		&& coords->y >= 0 && coords->y < gen_data->data->win_height)
 	{
-		index = (y * img_data->size_line + x * (img_data->bpp / 8));
-		*(int *)(img_data->img_data + index) = color; // Define a cor do pixel
+		index = ((int)coords->y * gen_data->img_data->size_line
+				+ (int)coords->x * (gen_data->img_data->bpp / 8));
+		*(int *)(gen_data->img_data->img_data + index) = coords->start_color;
 	}
 }
 
-void	trace_lines(float *x_step, float *y_step, t_coords *coords, t_fdf_gen *gen_data)
+void	trace_lines(float *x_step, float *y_step,
+		t_coords *coords, t_fdf_gen *gen_data)
 {
 	int		max;
 
@@ -49,11 +52,9 @@ void	trace_lines(float *x_step, float *y_step, t_coords *coords, t_fdf_gen *gen_
 	max = max_func(mod(*x_step), mod(*y_step));
 	*x_step /= max;
 	*y_step /= max;
-	// draw lines with the colors
 	while ((int)(coords->x - coords->x1) || (int)(coords->y - coords->y1))
 	{
-		// Define the color of  pixel using the color of initial point
-		set_pixel(gen_data->data, gen_data->img_data, (int)coords->x, (int)coords->y, coords->start_color);
+		set_pixel(coords, gen_data);
 		coords->x += *x_step;
 		coords->y += *y_step;
 	}
