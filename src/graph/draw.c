@@ -47,8 +47,7 @@ static void	bresehnam(t_coords coords, t_fdf_gen *gen_data)
 	coords.z = 0;
 	coords.z1 = 0;
 	coords.start_color = 0;
-
-	get_initial_values(&coords , gen_data->data);
+	get_initial_values(&coords, gen_data->data);
 	apply_scale_zoom(&coords, gen_data->graph);
 	apply_center_of_map(&coords, gen_data);
 	isometric(&coords.x, &coords.y, coords.z, gen_data->graph);
@@ -57,9 +56,25 @@ static void	bresehnam(t_coords coords, t_fdf_gen *gen_data)
 	trace_lines(&x_step, &y_step, &coords, gen_data);
 }
 
+static void	process_coords(t_coords *coords, t_fdf_gen *gen_data)
+{
+	if (coords->x < gen_data->data->width - 1)
+	{
+		coords->x1 = coords->x + 1;
+		coords->y1 = coords->y;
+		bresehnam(*coords, gen_data);
+	}
+	if (coords->y < gen_data->data->height - 1)
+	{
+		coords->x1 = coords->x;
+		coords->y1 = coords->y + 1;
+		bresehnam(*coords, gen_data);
+	}
+}
+
 void	draw(t_fdf_gen *gen_data)
 {
-	t_coords coords;
+	t_coords	coords;
 
 	clear_image(gen_data->data, gen_data->img_data);
 	coords.y = 0;
@@ -68,21 +83,11 @@ void	draw(t_fdf_gen *gen_data)
 		coords.x = 0;
 		while (coords.x < gen_data->data->width)
 		{
-			if (coords.x < gen_data->data->width - 1)
-			{
-				coords.x1 = coords.x + 1;
-				coords.y1 = coords.y;
-				bresehnam(coords, gen_data);
-			}
-			if (coords.y < gen_data->data->height - 1)
-			{
-				coords.x1 = coords.x;
-				coords.y1 = coords.y + 1;
-				bresehnam(coords, gen_data);
-			}
+			process_coords(&coords, gen_data);
 			coords.x++;
 		}
 		coords.y++;
 	}
-	mlx_put_image_to_window(gen_data->data->mlx_ptr, gen_data->data->win_ptr, gen_data->img_data->img_ptr, 0, 0);
+	mlx_put_image_to_window(gen_data->data->mlx_ptr, gen_data->data->win_ptr,
+		gen_data->img_data->img_ptr, 0, 0);
 }
