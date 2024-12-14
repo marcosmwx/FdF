@@ -87,17 +87,12 @@ typedef struct s_fdf_gen
 
 
 int			read_file(char *file_name, t_fdf *data);
-int			mouse_move(int x, int y, t_fdf_gen *gen_data);
-int			mouse_press(int button, int x, int y, t_fdf_gen *gen_data);
 int			free_resources(t_fdf_gen *gen_data);
 int			key_hook(int keycode, t_fdf_gen *gen_data);
 int			check_line_width_consistency(int fd, int width);
 int			get_height(char *file_name);
 int			get_width(char *file_name);
 int			free_pointer_server(t_fdf_gen *gen_data);
-int			mouse_move_event(int x, int y, void *param);
-int			set_mouse_up(int button, int x, int y, void *param);
-int			set_mouse_down(int button, int x, int y, void *param);
 void		free_data(t_fdf *data);
 void		draw(t_fdf_gen *gen_data);
 void		clear_image(t_fdf *data, t_img *img_data);

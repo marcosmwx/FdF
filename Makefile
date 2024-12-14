@@ -18,7 +18,6 @@ SRCS=	main.c \
 		src/free/clear_image.c \
 		src/hooks/key_hook.c \
 		src/hooks/pack_hooks.c \
-		src/hooks/mouse_control.c \
 		src/map/read_file.c \
 		src/map/read_file_utils.c \
 		src/graph/draw_trace_lines.c \
