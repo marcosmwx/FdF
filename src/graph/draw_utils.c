@@ -12,12 +12,18 @@
 
 #include "../../fdf.h"
 
-void get_initial_values(t_coords *coords, t_fdf *data)
+void	get_initial_values(t_coords *coords, t_fdf *data)
 {
 	// Acessa os valores z dentro dos blocos da matriz - valores iniciais
-	coords->z = data->z_matrix[(int)(coords->y * data->width + coords->x)].value; // Acesso ao valor Z
-	coords->z1 = data->z_matrix[(int)(coords->y1 * data->width + coords->x1)].value; // Acesso ao valor Z1
-	coords->start_color = ft_atoi_hexa(data->z_matrix[(int)(coords->y * data->width + coords->x)].hex); // Acesso à cor inicial
+	coords->z = data->z_matrix[
+		(int)(coords->y * data->width + coords->x)].value;
+	// Acesso ao valor Z
+	coords->z1 = data->z_matrix[
+		(int)(coords->y1 * data->width + coords->x1)].value;
+	// Acesso ao valor Z1
+	coords->start_color = ft_atoi_hexa(data->z_matrix[
+			(int)(coords->y * data->width + coords->x)].hex);
+	// Acesso à cor inicial
 }
 
 void	apply_scale_zoom(t_coords *coords, t_graph *graph)
