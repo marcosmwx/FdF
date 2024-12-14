@@ -37,48 +37,52 @@ static void	isometric(float *x, float *y, int z, t_graph *graph)
 	*y = rotated_y; // Y rotacionado em torno de X
 }
 
-static void	bresehnam(float x, float y, float x1, float y1, t_fdf *data, t_graph *graph, t_img *img_data)
+static void	bresehnam(t_coords coords, t_fdf_gen *gen_data)
 {
 	float	x_step;
 	float	y_step;
-	int		z;
-	int		z1;
-	int start_color;
 
 	x_step = 0;
 	y_step = 0;
-	z = 0;
-	z1 = 0;
-	start_color = 0;
+	coords.z = 0;
+	coords.z1 = 0;
+	coords.start_color = 0;
 
-	get_initial_values(&z, &z1, &start_color, x, x1, y, y1, data);
-	apply_scale_zoom(&x, &y, &x1, &y1, graph);
-	apply_center_of_map(&x, &y, &x1, &y1, data, graph);
-	isometric(&x, &y, z, graph);
-	isometric(&x1, &y1, z1, graph);
-	apply_shift(&x, &y, &x1, &y1, graph);
-	trace_lines(&x_step, &y_step, x, y, &x1, &y1, data, img_data, start_color);
+	get_initial_values(&coords , gen_data->data);
+	apply_scale_zoom(&coords, gen_data->graph);
+	apply_center_of_map(&coords, gen_data);
+	isometric(&coords.x, &coords.y, coords.z, gen_data->graph);
+	isometric(&coords.x1, &coords.y1, coords.z1, gen_data->graph);
+	apply_shift(&coords, gen_data->graph);
+	trace_lines(&x_step, &y_step, &coords, gen_data);
 }
 
 void	draw(t_fdf_gen *gen_data)
 {
-	clear_image(gen_data->data, gen_data->img_data);
-	int x;
-	int y;
+	t_coords coords;
 
-	y = 0;
-	while (y < gen_data->data->height)
+	clear_image(gen_data->data, gen_data->img_data);
+	coords.y = 0;
+	while (coords.y < gen_data->data->height)
 	{
-		x = 0;
-		while (x < gen_data->data->width)
+		coords.x = 0;
+		while (coords.x < gen_data->data->width)
 		{
-			if (x < gen_data->data->width - 1)
-				bresehnam(x, y, x + 1, y, gen_data->data, gen_data->graph, gen_data->img_data);
-			if (y < gen_data->data->height - 1)
-				bresehnam(x, y, x, y + 1, gen_data->data, gen_data->graph, gen_data->img_data);
-			x++;
+			if (coords.x < gen_data->data->width - 1)
+			{
+				coords.x1 = coords.x + 1;
+				coords.y1 = coords.y;
+				bresehnam(coords, gen_data);
+			}
+			if (coords.y < gen_data->data->height - 1)
+			{
+				coords.x1 = coords.x;
+				coords.y1 = coords.y + 1;
+				bresehnam(coords, gen_data);
+			}
+			coords.x++;
 		}
-		y++;
+		coords.y++;
 	}
 	mlx_put_image_to_window(gen_data->data->mlx_ptr, gen_data->data->win_ptr, gen_data->img_data->img_ptr, 0, 0);
 }
