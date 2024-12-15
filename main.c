@@ -39,9 +39,6 @@ static void	set_variables(t_fdf_gen *gen_data)
 	gen_data->graph->angle_x = 0.2;
 	gen_data->graph->angle_y = 0.2;
 	gen_data->graph->depth_factor = 0.4;
-	gen_data->mouse_set->click_active = 0;
-	gen_data->mouse_set->last_mouse_x = 0;
-	gen_data->mouse_set->last_mouse_y = 0;
 	map_center_x = (gen_data->data->width - 1) * gen_data->graph->zoom / 50.0;
 	map_center_y = (gen_data->data->height - 1) * gen_data->graph->zoom / 50.0;
 	gen_data->graph->shift_x = (gen_data->data->win_width / 2) - map_center_x;
@@ -81,12 +78,6 @@ int	malloc_structs(t_fdf_gen *gen_data)
 	}
 	gen_data->graph = (t_graph *)malloc(sizeof(t_graph));
 	if (!gen_data->graph)
-	{
-		free_resources(gen_data);
-		return (0);
-	}
-	gen_data->mouse_set = (t_mouse *)malloc(sizeof(t_mouse));
-	if (!gen_data->mouse_set)
 	{
 		free_resources(gen_data);
 		return (0);

@@ -15,9 +15,6 @@
 
 # include "imports/libft/libft.h"
 # include "imports/minilibx-linux/mlx.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
 
@@ -50,13 +47,6 @@ typedef struct s_graph
 	float	depth_factor;
 }			t_graph;
 
-typedef struct s_mouse
-{
-	int		last_mouse_x;
-	int		last_mouse_y;
-	int		click_active;
-}			t_mouse;
-
 typedef struct s_img
 {
 	int		bpp;
@@ -68,23 +58,21 @@ typedef struct s_img
 
 typedef struct s_coords
 {
-    float x;
-    float y;
-    float x1;
-    float y1;
-    int z;
-    int z1;
-    int start_color;
-} t_coords;
+	float	x;
+	float	y;
+	float	x1;
+	float	y1;
+	int		z;
+	int		z1;
+	int		start_color;
+}	t_coords;
 
 typedef struct s_fdf_gen
 {
 	t_fdf	*data;
 	t_graph	*graph;
 	t_img	*img_data;
-	t_mouse	*mouse_set;
 }		t_fdf_gen;
-
 
 int			read_file(char *file_name, t_fdf *data);
 int			free_resources(t_fdf_gen *gen_data);
@@ -96,7 +84,8 @@ int			free_pointer_server(t_fdf_gen *gen_data);
 void		free_data(t_fdf *data);
 void		draw(t_fdf_gen *gen_data);
 void		clear_image(t_fdf *data, t_img *img_data);
-void		trace_lines(float *x_step, float *y_step, t_coords *coords, t_fdf_gen *gen_data);
+void		trace_lines(float *x_step,
+				float *y_step, t_coords *coords, t_fdf_gen *gen_data);
 void		get_initial_values(t_coords *coords, t_fdf *data);
 void		apply_scale_zoom(t_coords *coords, t_graph *graph);
 void		apply_center_of_map(t_coords *coords, t_fdf_gen *gen_data);

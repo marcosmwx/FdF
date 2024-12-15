@@ -61,6 +61,5 @@ int	key_hook(int keycode, t_fdf_gen *gen_data)
 	handle_movement(keycode, gen_data);
 	handle_zoom(keycode, gen_data);
 	draw(gen_data);
-	printf("Key pressed: %d\n", keycode);
 	return (0);
 }
