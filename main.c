@@ -39,8 +39,8 @@ static void	set_variables(t_fdf_gen *gen_data)
 	gen_data->graph->angle_x = 0.2;
 	gen_data->graph->angle_y = 0.2;
 	gen_data->graph->depth_factor = 0.4;
-	map_center_x = (gen_data->data->width - 1) * gen_data->graph->zoom / 2.0;
-	map_center_y = (gen_data->data->height - 1) * gen_data->graph->zoom / 2.0;
+	map_center_x = (gen_data->data->width - 1) * gen_data->graph->zoom / 50.0;
+	map_center_y = (gen_data->data->height - 1) * gen_data->graph->zoom / 50.0;
 	gen_data->graph->shift_x = (gen_data->data->win_width / 2) - map_center_x;
 	gen_data->graph->shift_y = (gen_data->data->win_height / 2) - map_center_y;
 }
