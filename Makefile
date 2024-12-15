@@ -11,7 +11,7 @@ CC=		cc
 CFLAGS=	-g -Wall -Werror -Wextra
 INCLUDE= includes
 
-SRCS=	main.c \
+SRCS=	fdf.c \
 		src/free/free_data.c \
 		src/free/free_resources.c \
 		src/free/free_pointer_server.c \
