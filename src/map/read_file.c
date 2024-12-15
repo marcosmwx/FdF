@@ -57,10 +57,13 @@ static void	fill_matrix(t_point *z_line, char *line, int width)
 	free(nums);
 }
 
-static void	init_get_resources_from_file(t_fdf *data, char *file_name)
+static int	init_get_resources_from_file(t_fdf *data, char *file_name)
 {
 	data->height = get_height(file_name);
 	data->width = get_width(file_name);
+	if (data->width <= 0 || data->height <= 0)
+		return (0);
+	return (1);
 }
 
 int	read_file(char *file_name, t_fdf *data)
@@ -70,9 +73,10 @@ int	read_file(char *file_name, t_fdf *data)
 	int i;
 
 	i = -1;
-	init_get_resources_from_file(data, file_name);
-	data->z_matrix = (t_point *)malloc(sizeof(t_point) * data->height * data->width); // Alocação contígua
-	if (!data->z_matrix)
+	//init_get_resources_from_file(data, file_name);
+	//data->z_matrix = (t_point *)malloc(sizeof(t_point) * data->height * data->width); // Alocação contígua
+	if (!init_get_resources_from_file(data, file_name) ||
+		!(data->z_matrix = (t_point *)malloc(sizeof(t_point) * data->height * data->width)))
 		return (0);
 	fd = open(file_name, O_RDONLY);
 	if (fd < 0)

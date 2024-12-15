@@ -114,7 +114,7 @@ int	main(int argc, char **argv)
 	if (!read_file(argv[1], gen_data.data))
 	{
 		free_resources(&gen_data);
-		free_pointer_server(&gen_data);
+		//free_pointer_server(&gen_data);
 		return (0);
 	}
 	if (start_server(&gen_data))
