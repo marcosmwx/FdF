@@ -73,8 +73,7 @@ int	read_file(char *file_name, t_fdf *data)
 	int i;
 
 	i = -1;
-	//init_get_resources_from_file(data, file_name);
-	//data->z_matrix = (t_point *)malloc(sizeof(t_point) * data->height * data->width); // Alocação contígua
+	// Alocação contígua
 	if (!init_get_resources_from_file(data, file_name) ||
 		!(data->z_matrix = (t_point *)malloc(sizeof(t_point) * data->height * data->width)))
 		return (0);
