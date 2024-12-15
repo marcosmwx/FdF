@@ -16,14 +16,14 @@ static int	fill_value_and_color(char *num_str, t_point *z_line)
 {
 	char	**value_and_color;
 
-	value_and_color = ft_split(num_str, ','); // Separa valor e cor
+	value_and_color = ft_split(num_str, ',');
 	if (!value_and_color)
 		return (0);
-	z_line->value = ft_atoi(value_and_color[0]); // Primeiro elemento é o valor Z
-	if (value_and_color[1]) // Verifica se há cor definida
-		z_line->hex = ft_strdup(value_and_color[1]); // Duplica a cor para o hex
+	z_line->value = ft_atoi(value_and_color[0]);
+	if (value_and_color[1])
+		z_line->hex = ft_strdup(value_and_color[1]);
 	else
-		z_line->hex = ft_strdup("0xFFFFFF"); // Cor padrão (branco)
+		z_line->hex = ft_strdup("0xFFFFFF");
 	free(value_and_color[0]);
 	if (value_and_color[1])
 		free(value_and_color[1]);
@@ -37,10 +37,10 @@ static void	fill_matrix(t_point *z_line, char *line, int width)
 	int	i;
 
 	i = 0;
-	nums = ft_split(line, ' '); // Divide a linha em posix
+	nums = ft_split(line, ' ');
 	if (!nums)
 	{
-		free(nums);//talvez remover ou por o de dar free antes
+		free(nums);
 		return ;
 	}
 	while (nums[i] && i < width)
@@ -76,7 +76,7 @@ int	read_file(char *file_name, t_fdf *data)
 	i = -1;
 	if (!init_get_resources_from_file(data, file_name))
 		return (0);
-	data->z_matrix = (t_point *)malloc(sizeof(t_point) * data->height * data->width); 	// Alocação contígua
+	data->z_matrix = (t_point *)malloc(sizeof(t_point) * data->height * data->width);
 	if (!data->z_matrix)
 		return (0);
 	fd = open(file_name, O_RDONLY);
