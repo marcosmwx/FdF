@@ -75,7 +75,6 @@ typedef struct s_fdf_gen
 }		t_fdf_gen;
 
 int			read_file(char *file_name, t_fdf *data);
-int			free_resources(t_fdf_gen *gen_data);
 int			key_hook(int keycode, t_fdf_gen *gen_data);
 int			check_line_width_consistency(int fd, int width);
 int			get_height(char *file_name);
@@ -91,4 +90,5 @@ void		apply_scale_zoom(t_coords *coords, t_graph *graph);
 void		apply_center_of_map(t_coords *coords, t_fdf_gen *gen_data);
 void		apply_shift(t_coords *coords, t_graph *graph);
 void		pack_hooks(t_fdf_gen *gen_data);
+void		free_resources(t_fdf_gen *gen_data);
 #endif

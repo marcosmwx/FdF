@@ -22,22 +22,18 @@ static void	isometric(float *x, float *y, int z, t_graph *graph)
 
 	previous_x = *x;
 	previous_y = *y;
-	// Aplicando o fator de profundidade
 	z *= graph->depth_factor;
-	// Rotação em torno do eixo X
 	rotated_y = previous_y * cos(graph->angle_x) - z * sin(graph->angle_x);
 	rotated_z = previous_y * sin(graph->angle_x) + z * cos(graph->angle_x);
-	// Rotação em torno do eixo Y (se necessário)
 	rotated_x = previous_x * cos(graph->angle_y) + rotated_z
 		* sin(graph->angle_y);
 	rotated_z = -previous_x * sin(graph->angle_y) + rotated_z
 		* cos(graph->angle_y);
-	// Atualizando as coordenadas
-	*x = rotated_x; // X rotacionado em torno de Y
-	*y = rotated_y; // Y rotacionado em torno de X
+	*x = rotated_x;
+	*y = rotated_y;
 }
 
-static void	bresehnam(t_coords coords, t_fdf_gen *gen_data)
+static void	bresenham(t_coords coords, t_fdf_gen *gen_data)
 {
 	float	x_step;
 	float	y_step;
@@ -62,13 +58,13 @@ static void	process_coords(t_coords *coords, t_fdf_gen *gen_data)
 	{
 		coords->x1 = coords->x + 1;
 		coords->y1 = coords->y;
-		bresehnam(*coords, gen_data);
+		bresenham(*coords, gen_data);
 	}
 	if (coords->y < gen_data->data->height - 1)
 	{
 		coords->x1 = coords->x;
 		coords->y1 = coords->y + 1;
-		bresehnam(*coords, gen_data);
+		bresenham(*coords, gen_data);
 	}
 }
 
