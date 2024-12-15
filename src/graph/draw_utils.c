@@ -24,7 +24,6 @@ void	get_initial_values(t_coords *coords, t_fdf *data)
 
 void	apply_scale_zoom(t_coords *coords, t_graph *graph)
 {
-	//apply scale of zoom of any original value of scale
 	coords->x *= graph->zoom;
 	coords->y *= graph->zoom;
 	coords->x1 *= graph->zoom;

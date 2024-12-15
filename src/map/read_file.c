@@ -33,8 +33,8 @@ static int	fill_value_and_color(char *num_str, t_point *z_line)
 
 static void	fill_matrix(t_point *z_line, char *line, int width)
 {
-	char		**nums;
-	int	i;
+	char	**nums;
+	int		i;
 
 	i = 0;
 	nums = ft_split(line, ' ');
@@ -69,27 +69,25 @@ static int	init_get_resources_from_file(t_fdf *data, char *file_name)
 
 int	read_file(char *file_name, t_fdf *data)
 {
-	int fd;
-	char *line;
-	int i;
+	int		fd;
+	int		i;
+	char	*line;
 
 	i = -1;
 	if (!init_get_resources_from_file(data, file_name))
 		return (0);
-	data->z_matrix = (t_point *)malloc(sizeof(t_point) * data->height * data->width);
-	if (!data->z_matrix)
-		return (0);
 	fd = open(file_name, O_RDONLY);
 	if (fd < 0)
-	{
-		free(data->z_matrix);
 		return (0);
-	}
+	data->z_matrix = (t_point *)malloc(sizeof(t_point) * data->height
+			* data->width);
+	if (!data->z_matrix)
+		return (0);
 	while (++i < data->height)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
-			break;
+			break ;
 		fill_matrix(&data->z_matrix[i * data->width], line, data->width);
 	}
 	close(fd);
