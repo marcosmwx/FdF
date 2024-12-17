@@ -12,6 +12,7 @@
 
 #include "../../fdf.h"
 #include "keycodes.h"
+#include <stdio.h>
 
 static void	handle_depth(int keycode, t_fdf_gen *gen_data)
 {
@@ -48,9 +49,15 @@ static void	handle_movement(int keycode, t_fdf_gen *gen_data)
 static void	handle_zoom(int keycode, t_fdf_gen *gen_data)
 {
 	if (keycode == KEY_Z)
-		gen_data->graph->zoom += 1;
+	{
+		if (gen_data->graph->zoom < 21 && gen_data->graph->zoom >= 3)
+			gen_data->graph->zoom += 1;
+	}
 	else if (keycode == KEY_X)
-		gen_data->graph->zoom -= 1;
+	{
+		if (gen_data->graph->zoom > 3 && gen_data->graph->zoom <= 21)
+			gen_data->graph->zoom -= 1;
+	}
 }
 
 int	key_hook(int keycode, t_fdf_gen *gen_data)
